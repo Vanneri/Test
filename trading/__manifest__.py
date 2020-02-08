@@ -3,7 +3,7 @@
     'name': "Trading Module",
 
     'summary': """
-        Introduces diffrent type of trading concepts 
+        Introduces diffrent types of trading concepts 
         """,
     'author': "Vanneri",
     'website': "https://github.com/Vanneri/Test/tree/12.0",
@@ -20,7 +20,7 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/trading.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode

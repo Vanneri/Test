@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id="trading_types_form" model="ir.ui.view">
+           <field name="name">trading.types.form</field>
+           <field name="model">trading.types</field>
+           <field name="arch" type="xml">
+               <form string="">
+                   <sheet>
+                       <group>
+                           <field name="name"/>
+                       </group>
+                   </sheet>
+               </form>
+           </field>
+       </record>
+
+
+        <record id="trading_types_form" model="ir.ui.view">
+            <field name="name">trading.types.tree</field>
+            <field name="model">trading.types</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="trading_types_action" model="ir.actions.act_window">
+            <field name="name">Trading Types</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">trading.types</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Trading Types Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <menuitem id="menu_trading" name="Trading" sequence="10"/>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="menu_trading_configuration" name="Configuration" parent="menu_trading" sequence="50"/>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_trading_types" name="Types" parent="menu_trading_configuration" action="trading_types_action" sequence="10"/>
+
+    </data>
+</odoo>
