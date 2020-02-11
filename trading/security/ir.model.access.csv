@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_trading_trading,trading.trading,model_trading_trading,,1,0,0,0
+access_trading_user,trading.types,model_trading_types,trading.group_trading_user,1,1,1,0
+access_trading_manager,trading.types,model_trading_types,trading.group_trading_manager,1,1,1,1

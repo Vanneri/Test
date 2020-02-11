@@ -2,44 +2,122 @@
 <odoo>
     <data>
 
-       <record id="trading_types_form" model="ir.ui.view">
-           <field name="name">trading.types.form</field>
-           <field name="model">trading.types</field>
-           <field name="arch" type="xml">
-               <form string="">
-                   <sheet>
-                       <group>
-                           <field name="name"/>
-                       </group>
-                   </sheet>
-               </form>
-           </field>
-       </record>
+        <record id="trading_types_form2" model="ir.ui.view">
+            <field name="name">trading.types.form</field>
+            <field name="model">trading.types</field>
+            <field name="arch" type="xml">
+                <form string="Types">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
 
-        <record id="trading_types_form" model="ir.ui.view">
+        <record id="trading_types_tree2" model="ir.ui.view">
             <field name="name">trading.types.tree</field>
             <field name="model">trading.types</field>
             <field name="arch" type="xml">
-                <tree string="">
+                <tree string="Types">
                     <field name="name"/>
                 </tree>
             </field>
         </record>
 
-        <record id="trading_types_action" model="ir.actions.act_window">
+        <record id="action_trading_types" model="ir.actions.act_window">
             <field name="name">Trading Types</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">trading.types</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-              <p class="oe_view_nocontent_create">
-                <!-- Add Trading Types Here -->
-              </p><p>
-                <!-- More details about what a user can do with this object will be OK -->
-              </p>
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Trading Types Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
             </field>
         </record>
+
+        <record id="action_trading_types_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="trading_types_tree2"/>
+            <field name="act_window_id" ref="action_trading_types"/>
+        </record>
+
+        <record id="action_trading_types_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="trading_types_form2"/>
+            <field name="act_window_id" ref="action_trading_types"/>
+        </record>
+
+        <!--<record id="action_trading_types_2" model="ir.actions.act_window">-->
+        <!--<field name="name">Trading Overview</field>-->
+        <!--<field name="res_model">trading.types</field>-->
+        <!--<field name="type">ir.actions.act_window</field>-->
+        <!--<field name="view_type">form</field>-->
+        <!--<field name="view_mode">kanban,form</field>-->
+        <!--<field name="help" type="html">-->
+        <!--<p class="o_view_nocontent_smiling_face">-->
+        <!--Create a new Trading type-->
+        <!--</p>-->
+        <!--<p>-->
+
+        <!--</p>-->
+        <!--</field>-->
+        <!--</record>-->
+
+
+        <!--<record id="trading_types_kanban" model="ir.ui.view">-->
+        <!--<field name="name">trading.types.kanban</field>-->
+        <!--<field name="model">trading.types</field>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors o_trading_kanban" create="0">-->
+        <!--&lt;!&ndash;<field name="color"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<field name="code"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<field name="count_picking_ready"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<field name="count_picking_draft"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<field name="count_picking_waiting"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<field name="count_picking_late"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<field name="count_picking_backorders"/>&ndash;&gt;-->
+        <!--<templates>-->
+        <!--<t t-name="kanban-box">-->
+        <!--<div name="trading_type">-->
+        <!--<div>-->
+        <!--<div t-attf-class="o_kanban_card_header">-->
+        <!--<div class="o_kanban_card_header_title">-->
+        <!--<div class="o_primary">-->
+        <!--&lt;!&ndash;<a type="object" name="get_stock_picking_action_picking_type">&ndash;&gt;-->
+        <!--<field name="name"/>-->
+        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        <!--</div>-->
+        <!---->
+        <!--</div>-->
+        <!--<div class="o_kanban_manage_button_section">-->
+        <!--<a class="o_kanban_manage_toggle_button" href="#">-->
+        <!--<i class="fa fa-ellipsis-v" role="img" aria-label="Manage"-->
+        <!--title="Manage"/>-->
+        <!--</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</t>-->
+
+        <!--</templates>-->
+        <!--</kanban>-->
+        <!--</field>-->
+        <!--</record>-->
 
         <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
         <menuitem id="menu_trading" name="Trading" sequence="10"/>
@@ -48,7 +126,11 @@
         <menuitem id="menu_trading_configuration" name="Configuration" parent="menu_trading" sequence="50"/>
 
         <!-- This Menu Item must have a parent and an action -->
-        <menuitem id="menu_trading_types" name="Types" parent="menu_trading_configuration" action="trading_types_action" sequence="10"/>
+        <menuitem id="menu_trading_types" name="Types" parent="menu_trading_configuration" action="action_trading_types"
+                  sequence="10"/>
+
+        <!--<menuitem action="trading_types_kanban" id="menu_trading_types_overview" parent="menu_trading" sequence="0"-->
+        <!--name="Overview"/>-->
 
     </data>
 </odoo>
