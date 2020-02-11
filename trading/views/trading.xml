@@ -61,63 +61,61 @@
             <field name="act_window_id" ref="action_trading_types"/>
         </record>
 
-        <!--<record id="action_trading_types_2" model="ir.actions.act_window">-->
-        <!--<field name="name">Trading Overview</field>-->
-        <!--<field name="res_model">trading.types</field>-->
-        <!--<field name="type">ir.actions.act_window</field>-->
-        <!--<field name="view_type">form</field>-->
-        <!--<field name="view_mode">kanban,form</field>-->
-        <!--<field name="help" type="html">-->
-        <!--<p class="o_view_nocontent_smiling_face">-->
-        <!--Create a new Trading type-->
-        <!--</p>-->
-        <!--<p>-->
+        <record id="action_trading_types_2" model="ir.actions.act_window">
+            <field name="name">Trading Overview</field>
+            <field name="res_model">trading.types</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Trading type
+                </p>
+                <p>
 
-        <!--</p>-->
-        <!--</field>-->
-        <!--</record>-->
+                </p>
+            </field>
+        </record>
+        <record id="trading_types_kanban" model="ir.ui.view">
+            <field name="name">trading.types.kanban</field>
+            <field name="model">trading.types</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors o_trading_kanban" create="0">
+                    <!--<field name="color"/>-->
+                    <!--<field name="code"/>-->
+                    <!--<field name="count_picking_ready"/>-->
+                    <!--<field name="count_picking_draft"/>-->
+                    <!--<field name="count_picking_waiting"/>-->
+                    <!--<field name="count_picking_late"/>-->
+                    <!--<field name="count_picking_backorders"/>-->
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div name="trading_type">
+                                <div>
+                                    <div t-attf-class="o_kanban_card_header">
+                                        <div class="o_kanban_card_header_title">
+                                            <div class="o_primary">
+                                                <!--<a type="object" name="get_stock_picking_action_picking_type">-->
+                                                <field name="name"/>
+                                                <!--</a>-->
+                                            </div>
 
+                                        </div>
+                                        <div class="o_kanban_manage_button_section">
+                                            <a class="o_kanban_manage_toggle_button" href="#">
+                                                <i class="fa fa-ellipsis-v" role="img" aria-label="Manage"
+                                                   title="Manage"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
 
-        <!--<record id="trading_types_kanban" model="ir.ui.view">-->
-        <!--<field name="name">trading.types.kanban</field>-->
-        <!--<field name="model">trading.types</field>-->
-        <!--<field name="arch" type="xml">-->
-        <!--<kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors o_trading_kanban" create="0">-->
-        <!--&lt;!&ndash;<field name="color"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<field name="code"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<field name="count_picking_ready"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<field name="count_picking_draft"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<field name="count_picking_waiting"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<field name="count_picking_late"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<field name="count_picking_backorders"/>&ndash;&gt;-->
-        <!--<templates>-->
-        <!--<t t-name="kanban-box">-->
-        <!--<div name="trading_type">-->
-        <!--<div>-->
-        <!--<div t-attf-class="o_kanban_card_header">-->
-        <!--<div class="o_kanban_card_header_title">-->
-        <!--<div class="o_primary">-->
-        <!--&lt;!&ndash;<a type="object" name="get_stock_picking_action_picking_type">&ndash;&gt;-->
-        <!--<field name="name"/>-->
-        <!--&lt;!&ndash;</a>&ndash;&gt;-->
-        <!--</div>-->
-        <!---->
-        <!--</div>-->
-        <!--<div class="o_kanban_manage_button_section">-->
-        <!--<a class="o_kanban_manage_toggle_button" href="#">-->
-        <!--<i class="fa fa-ellipsis-v" role="img" aria-label="Manage"-->
-        <!--title="Manage"/>-->
-        <!--</a>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</t>-->
-
-        <!--</templates>-->
-        <!--</kanban>-->
-        <!--</field>-->
-        <!--</record>-->
+                    </templates>
+                </kanban>
+            </field>
+        </record>
 
         <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
         <menuitem id="menu_trading" name="Trading" sequence="10"/>
@@ -129,8 +127,8 @@
         <menuitem id="menu_trading_types" name="Types" parent="menu_trading_configuration" action="action_trading_types"
                   sequence="10"/>
 
-        <!--<menuitem action="trading_types_kanban" id="menu_trading_types_overview" parent="menu_trading" sequence="0"-->
-        <!--name="Overview"/>-->
+        <menuitem action="trading_types_kanban" id="menu_trading_types_overview" parent="menu_trading" sequence="0"
+                  name="Overview"/>
 
     </data>
 </odoo>
