@@ -7,4 +7,6 @@ class Trading(models.Model):
     _description = 'Trading Types'
 
     name = fields.Char()
+    color = fields.Integer('Color')
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
 

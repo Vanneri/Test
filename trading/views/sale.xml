@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_order_form_trading" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.trading</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='validity_date']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <field name="trading_id" options="{'no_create': True}" required="True"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_sale_trading" name="SO" parent="trading.menu_trading" action="sale.action_orders" sequence="10"/>
+
+
+
+
+    </data>
+</odoo>
