@@ -14,6 +14,15 @@
                     <field name="trading_id" options="{'no_create': True}" required="True"/>
                 </xpath>
 
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_tax']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="delivery_status" invisible="1"/>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page/group/group[@name='sale_pay']/field[@name='invoice_status']" position="after">
+                    <field name="delivery_status"/>
+                </xpath>
+
             </field>
         </record>
 
