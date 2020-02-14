@@ -19,17 +19,34 @@
                     <field name="delivery_status" invisible="1"/>
                 </xpath>
 
-                <xpath expr="/form/sheet/notebook/page/group/group[@name='sale_pay']/field[@name='invoice_status']" position="after">
+                <xpath expr="/form/sheet/notebook/page/group/group[@name='sale_pay']/field[@name='invoice_status']"
+                       position="after">
                     <field name="delivery_status"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_done']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <button name="action_view_po" string="Create PO" type="object" class="oe_highlight" context="{'create_po':True}"
+                            attrs="{'invisible': [('state', 'not in', ('sale','done'))]}"/>
+                </xpath>
+
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <!-- Add your fields or attributes here -->
+                    <button type="object" name="action_view_po"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o"
+                            attrs="{'invisible':['|', ('po_count', '=', 0), ('state', 'in', ('draft','sent','cancel'))]}">
+                        <field name="po_count" widget="statinfo" string="PO's"/>
+                        <field name='purchase_order_ids' invisible="1"/>
+                    </button>
                 </xpath>
 
             </field>
         </record>
 
         <!-- This Menu Item must have a parent and an action -->
-        <menuitem id="menu_sale_trading" name="SO" parent="trading.menu_trading" action="sale.action_orders" sequence="10"/>
-
-
+        <menuitem id="menu_sale_trading" name="SO" parent="trading.menu_trading" action="sale.action_orders"
+                  sequence="10"/>
 
 
     </data>
