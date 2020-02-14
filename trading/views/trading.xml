@@ -55,6 +55,37 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="container o_kanban_card_content">
+                                        <div class="row">
+                                            <div class="col-4 o_kanban_primary_left">
+
+                                            </div>
+                                            <div class="col-8 o_kanban_primary_right">
+
+
+                                                <div class="row">
+                                                    <div class="col-9">
+                                                        <a name="get_action_trading_tree_saleorder" type="object">
+                                                            Sale Order
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <field name="count_trading_so"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-9">
+                                                        <a name="get_action_trading_tree_purchaseorder" type="object">
+                                                            Purchase Order
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <field name="count_trading_po"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
                                     <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
                                         <div class="col-8" role="menuitem" aria-haspopup="true">
@@ -66,7 +97,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </t>
 
                     </templates>
@@ -108,7 +139,7 @@
             <field name="view_mode">kanban,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    
+
                 </p>
                 <p>
 

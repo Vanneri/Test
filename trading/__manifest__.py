@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Trading Module",
+    'name': "Trading",
 
     'summary': """
         Introduces diffrent types of trading concepts 

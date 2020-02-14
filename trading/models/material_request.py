@@ -18,8 +18,8 @@ class MaterialRequest(models.Model):
         ('approved', 'Approved'), ('done', 'Done')], string='Status', index=True, default='draft',
         store=True, help=" * Draft: not confirmed yet and will not be scheduled until confirmed\n"
                          " * Cancelled: has been cancelled, can't be confirmed anymore")
-    requested_from = fields.Many2one('stock.location', string="Requested From")
-    requested_to = fields.Many2one('stock.location', string="Requested To")
+    requested_from = fields.Many2one('stock.location', string="Requested From",domain=[('usage', '=', 'internal')])
+    requested_to = fields.Many2one('stock.location', string="Requested To",domain=[('usage', '=', 'internal')])
     transfer_date = fields.Datetime(string="Scheduled Date", required=True, default=fields.Datetime.now)
     material_line_ids = fields.One2many('material.request.line', 'material_id', string="Material Request Line")
     picking_type_id = fields.Many2one('stock.picking.type', string="Stock Picking Type")
@@ -51,16 +51,13 @@ class MaterialRequest(models.Model):
 
     @api.multi
     def approve_product(self):
-        # for order in self.material_line_ids:
-        # 	if order.product_id.custom_tracking == True or order.product_id.pi_tracking == True:
-
+        '''
+        This function approves the transfer of materials
+        :return:
+        '''
         transit = self.env['stock.location'].sudo().search([('usage', '=', 'transit')], limit=1)
-        location = self.env['stock.location'].sudo().search(
-            [('operating_unit_id', '=', self.requested_to.id), ('usage', '=', 'internal')])
-        location_dest = self.env['stock.location'].sudo().search(
-            [('operating_unit_id', '=', self.requested_from.id), ('usage', '=', 'internal')])
         picking_obj = self.env['stock.picking.type'].sudo().search(
-            [('code', '=', 'internal'), ('default_location_src_id', '=', location.id)]).id
+            [('code', '=', 'internal'), ('default_location_src_id', '=', self.requested_to.id)]).id
         for vals in self:
             pick = {
                 'origin': vals.name,
@@ -68,7 +65,7 @@ class MaterialRequest(models.Model):
                 'location_id': self.requested_to.id,
                 'location_dest_id': self.requested_from.id,
                 'min_date': vals.transfer_date,
-                'company_id': location.company_id.id
+                'company_id': self.requested_to.company_id.id
             }
         picking = self.env['stock.picking'].sudo().create(pick)
         for line in self.material_line_ids:
@@ -85,17 +82,12 @@ class MaterialRequest(models.Model):
             self.env['stock.move'].sudo().create(move)
         picking.sudo().action_assign()
         self.transfer_reference = picking.id
-        # transfer = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, self.transfer_reference.id)]})
-        # transfer.process()
         self.transfer_id = self.transfer_reference.name
         self.write({'state': 'approved'})
 
     @api.multi
     def do_approve(self):
-        location_dest = self.env['stock.location'].sudo().search(
-            [('operating_unit_id', '=', self.requested_from.id), ('usage', '=', 'internal')])
-        location_to = self.env['stock.location'].sudo().search(
-            [('operating_unit_id', '=', self.requested_to.id), ('usage', '=', 'internal')])
+        
         for line in self.material_line_ids:
             if line.product_id.with_context({'location': self.requested_to.id}).sudo().qty_available < 0:
                 raise UserError(_("Material %s is not available") % line.product_id.name)
@@ -103,16 +95,6 @@ class MaterialRequest(models.Model):
                 raise UserError(_("%s Available quantity is %s") % (line.product_id.name, line.product_id.with_context({
                     'location':self.requested_to.id}).qty_available))
         self.approve_product()
-
-    # for request in self:
-    # 	for line in request.material_line_ids:
-    # 		for capacity in location_dest:
-    # 			if capacity.stop_limit != True:
-    # 				stock = line.quantity * line.product_id.standard_price
-    # 				capacity.requested_stock_value = stock
-    # 				total_stock = capacity.requested_stock_value + capacity.current_location_value
-
-
 
     @api.multi
     def done_transfer(self):
