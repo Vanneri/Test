@@ -26,6 +26,7 @@
         'views/sale.xml',
         'views/purchase.xml',
         'views/templates.xml',
+        'views/material_request.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
